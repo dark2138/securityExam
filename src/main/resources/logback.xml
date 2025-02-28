@@ -1,0 +1,49 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level [%thread] %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!--   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+           <file>c:/logs/likelion/security.log</file>
+           <encoder>
+               <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level [%thread] %logger{36} - %msg%n</pattern>
+           </encoder>
+       </appender> -->
+
+       <appender name="DAILY_ROLLING_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+<!--          <file>c:/logs/likelion/security_debug.log</file>-->
+           <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+               <fileNamePattern>c:/logs/likelion/security-%d{yyyy-MM-dd}.log</fileNamePattern>
+               <maxHistory>30</maxHistory>
+           </rollingPolicy>
+           <encoder>
+               <pattern>[%d{yyyy-MM-dd HH:mm:ss}] %-5level [%thread] %logger{36} - %msg%n</pattern>
+           </encoder>
+       </appender>
+   <!--    TimeBasedRollingPolicy를 사용하여 시간 기반으로 로그 파일을 관리합니다.
+
+       매일 새로운 로그 파일이 생성되며, 파일명 패턴은 security-yyyy-MM-dd.log 형식입니다.
+
+       maxHistory가 30으로 설정되어 있어, 최대 30일치의 로그 파일만 보관됩니다
+
+       이 설정을 통해 매일 새로운 로그 파일이 생성되며, 로그 내용이 지정된 형식으로 기록됩니다.
+
+       또한 30일이 지난 로그 파일은 자동으로 삭제되어 디스크 공간을 효율적으로 관리할 수 있습니다.
+
+       -->
+
+    <logger name="org.springframework.security" level="debug" additivity="false">
+        <appender-ref ref="FILE" />
+    </logger>
+
+    <logger name="org.springframework.security" level="trace" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="DAILY_ROLLING_FILE" />
+    </root>
+</configuration>
