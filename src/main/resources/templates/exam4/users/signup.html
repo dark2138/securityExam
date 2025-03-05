@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #5cb85c;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .error {
+            color: red;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>회원가입</h2>
+
+    <!-- 회원가입 에러 메시지 표시 -->
+    <div th:if="${errorMessage}" class="error-message">
+        <p th:text="${errorMessage}" style="color: red;"></p>
+    </div>
+
+
+    <form th:action="@{/register123}" th:method="post" th:object="${user}">
+
+        <div class="form-group">
+            <label for="username">아이디:</label>
+            <input type="text" id="username" th:field="*{username}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="password">비밀번호:</label>
+            <input type="password" id="password" th:field="*{password}" autocomplete="new-password" required>
+        </div>
+
+        <div class="form-group">
+            <label for="name">이름:</label>
+            <input type="text" id="name" th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">이메일:</label>
+            <input type="email" id="email" th:field="*{email}" required>
+        </div>
+
+        <div class="form-group">
+            <label>권한 선택:</label><br>
+            <input type="checkbox" id="role_user" th:field="*{roles}" th:value="'USER'">
+            <label for="role_user">USER</label><br>
+            <input type="checkbox" id="role_admin" th:field="*{roles}" th:value="'ADMIN'">
+            <label for="role_admin">ADMIN</label><br><br>
+        </div>
+
+        <button type="submit">가입하기</button>
+    </form>
+</div>
+</body>
+</html>
