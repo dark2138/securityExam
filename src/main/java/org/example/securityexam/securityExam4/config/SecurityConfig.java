@@ -53,6 +53,14 @@ public class SecurityConfig {
                         .logoutUrl("/logout") // 로그아웃 URL 설정
                         .logoutSuccessUrl("/loginform") // 로그아웃 성공 시 리다이렉트 경로
                 )
+                .sessionManagement(session->session
+                                .maximumSessions(1) // 동시 접속 허용 개수 ( 일반모드, 시크릿모드)
+                                .maxSessionsPreventsLogin(true) // 디폴트가 false 두번째 로그인 안됨
+
+                        )
+
+
+
                 .userDetailsService(customUserDetailservice); // UserDetailsService 추가
 
 
